@@ -78,7 +78,8 @@ class Events
        {
            //生成group
            $args = explode('.', $data['args'][0]);
-           $group = $args[1] . $args[2];
+//           $group = $args[1] . '_'. $args[2];
+           $group = 'M5_BTC_USDT';
            //加入组
            Gateway::joinGroup($client_id, $group);
            //读取组文件,获取组数据
@@ -119,7 +120,7 @@ class Events
            case 'push';
            //推送新数据
                $send = json_encode($data['data']);
-               $sendGroup = $data['group'];
+               $sendGroup = 'M5_BTC_USDT';
                break;
        }
 
