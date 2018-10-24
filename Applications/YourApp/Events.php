@@ -121,6 +121,7 @@ class Events
            //推送新数据
                $send = json_encode($data['data']);
                $sendGroup = 'M5_BTC_USDT';
+               var_dump(Gateway::getClientSessionsByGroup($sendGroup));
                break;
        }
 
