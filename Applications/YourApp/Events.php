@@ -131,7 +131,8 @@ class Events
        }
        if (isset($send))
        {
-           Gateway::sendToGroup($sendGroup, $data);
+//           Gateway::sendToGroup($sendGroup, $data);
+           Gateway::sendToAll($data);
        }
    }
    
