@@ -62,9 +62,27 @@ class Events
     */
    public static function onMessage($client_id, $message)
    {
+       var_dump($client_id);
+       var_dump($message);
+       // $message = '{"type":"join","group":"xxxxx"}'
+       $req_data = json_decode($message, true);
+//       Gateway::joinGroup($client_id, $req_data['group']);
+//       Gateway::sendToGroup($sendToGroup, $data);
+//       {"args":["candle.M1.btcusdt",1441,1540358951],"cmd":"req","id":"A427B246-C3B5-4D97-9480-48E6F8A97023"}
 
        $data = json_decode($message, true);
        $cmd = $data['cmd'];
+       $file  =  __DIR__ . '/../../group.txt';//要写入文件的文件名（可以是任意文件名），如果文件不存在，将会创建一个
+
+       if ($cmd == 'req' && isset($data['args'][2]))
+       {
+           $args = explode('.', $data['args'][0]);
+           $group = $args[1] . $args[2];
+           Gateway::joinGroup($client_id, $group);
+           $content = "$group\n";
+           file_put_contents($file, $content,FILE_APPEND);
+       }
+
        $sendData = new data();
        switch ($cmd)
        {
@@ -83,10 +101,8 @@ class Events
                $push = $sendData->history($time);
            }
                break;
-           case 'send';
-               $send = $sendData->push();
-               break;
            case 'push';
+           //推送新数据
                $send = json_encode($data['data']);
                break;
        }
@@ -97,7 +113,11 @@ class Events
        }
        if (isset($send))
        {
-           GateWay::sendToAll($send);
+           $sendToGroup = file_get_contents($file);
+           foreach ($sendToGroup as $sendToGroup)
+           {
+               Gateway::sendToGroup($sendToGroup, $data);
+           }
        }
    }
    
