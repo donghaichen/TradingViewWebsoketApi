@@ -121,7 +121,6 @@ class Events
            //推送新数据
                $send = json_encode($data['data']);
                $sendGroup = 'M5_BTC_USDT';
-               var_dump(Gateway::getClientSessionsByGroup($sendGroup));
                break;
        }
 
@@ -131,8 +130,8 @@ class Events
        }
        if (isset($send))
        {
-//           Gateway::sendToGroup($sendGroup, $data);
-           Gateway::sendToAll($data);
+           Gateway::sendToGroup($sendGroup, $send);
+//           Gateway::sendToAll($send);
        }
    }
    

@@ -12,3 +12,4 @@ M5btcusdt
 M5btcusdt
 M5btcusdt
 M5btcusdt
+M5_BTC_USDT
