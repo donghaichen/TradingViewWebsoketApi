@@ -82,6 +82,17 @@ class Events
            $content = "$group\n";
            file_put_contents($file, $content,FILE_APPEND);
        }
+//       var_dump($sendToGroup = file_get_contents($file));
+       $sendToGroup = explode("\n", file_get_contents($file));
+       foreach ($sendToGroup as $k => $v)
+       {
+           if (!empty($v))
+           {
+               $arr[$v] = '';
+           }
+       }
+       var_dump($arr);
+
 
        $sendData = new data();
        switch ($cmd)
@@ -95,10 +106,10 @@ class Events
                break;
            case 'req';
            if (time() - $data['args'][2] <= 300){
-               $push = $sendData->firstData();
+               $push = $sendData->firstData('BTC_USDT', 'M5');
            }else{
                $time = $data['args'][2];
-               $push = $sendData->history($time);
+               $push = $sendData->history('BTC_USDT', 'M5', $time);
            }
                break;
            case 'push';
