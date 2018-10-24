@@ -76,23 +76,27 @@ class Events
 
        if ($cmd == 'req' && isset($data['args'][2]))
        {
+           //生成group
            $args = explode('.', $data['args'][0]);
            $group = $args[1] . $args[2];
+           //加入组
            Gateway::joinGroup($client_id, $group);
-           $content = "$group\n";
-           file_put_contents($file, $content,FILE_APPEND);
-       }
-//       var_dump($sendToGroup = file_get_contents($file));
-       $sendToGroup = explode("\n", file_get_contents($file));
-       foreach ($sendToGroup as $k => $v)
-       {
-           if (!empty($v))
+           //读取组文件,获取组数据
+           $groupTxt = explode("\n", file_get_contents($file));
+           foreach ($groupTxt as $k => $v)
            {
-               $arr[$v] = '';
+               if (!empty($v))
+               {
+                   $groupArr[$v] = '';
+               }
+           }
+           //查询组是否在文件已写入并写入
+           if (!array_key_exists($group, $groupArr))
+           {
+               $content = "$group\n";
+               file_put_contents($file, $content,FILE_APPEND);
            }
        }
-       var_dump($arr);
-
 
        $sendData = new data();
        switch ($cmd)
@@ -115,6 +119,7 @@ class Events
            case 'push';
            //推送新数据
                $send = json_encode($data['data']);
+               $sendGroup = $data['group'];
                break;
        }
 
@@ -124,11 +129,7 @@ class Events
        }
        if (isset($send))
        {
-           $sendToGroup = file_get_contents($file);
-           foreach ($sendToGroup as $sendToGroup)
-           {
-               Gateway::sendToGroup($sendToGroup, $data);
-           }
+           Gateway::sendToGroup($sendGroup, $data);
        }
    }
    
