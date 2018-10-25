@@ -62,8 +62,6 @@ class Events
     */
    public static function onMessage($client_id, $message)
    {
-       var_dump($client_id);
-       var_dump($message);
        // $message = '{"type":"join","group":"xxxxx"}'
        $req_data = json_decode($message, true);
 //       Gateway::joinGroup($client_id, $req_data['group']);
@@ -77,9 +75,9 @@ class Events
        if ($cmd == 'req' && isset($data['args'][2]))
        {
            //生成group
-           $args = explode('.', $data['args'][0]);
-//           $group = $args[1] . '_'. $args[2];
-           $group = 'M5_BTC_USDT';
+           $args = strtoupper($data['args'][0]);
+           $args = explode('.',$args);
+           $group = $args[1] . '_'. $args[2];
            //加入组
            Gateway::joinGroup($client_id, $group);
            //读取组文件,获取组数据
@@ -120,7 +118,7 @@ class Events
            case 'push';
            //推送新数据
                $send = json_encode($data['data']);
-               $sendGroup = 'M5_BTC_USDT';
+               $sendGroup = $data['group'];
                break;
        }
 
@@ -131,7 +129,6 @@ class Events
        if (isset($send))
        {
            Gateway::sendToGroup($sendGroup, $send);
-//           Gateway::sendToAll($send);
        }
    }
    
