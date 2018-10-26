@@ -102,7 +102,7 @@ class Events
                $push = $sendData->firstData();
                break;
            case 'req';
-               $args = explode('.', $args[0]);
+               $args = explode('.', $data['args'][0]);
                $pair = $args[2];
                $period = $args[1];
            if (time() - $data['args'][2] <= 300){
