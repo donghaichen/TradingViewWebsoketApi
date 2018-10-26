@@ -115,6 +115,7 @@ subscribe(function($res) {
        if(!$client)exit("can not connect");
        $data = [
            'cmd' => 'push',
+           'group' => 'M5_BTC_USDT',
            'data' => $data,
        ];
        fwrite($client, json_encode($data) ."\n");

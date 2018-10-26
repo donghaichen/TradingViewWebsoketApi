@@ -103,19 +103,20 @@ class Events
                $push = $sendData->firstData();
                break;
            case 'req';
+               $args = explode('.', $pair = explode());
+               $pair = $args[2];
+               $period = $args[1];
            if (time() - $data['args'][2] <= 300){
-               $push = $sendData->firstData('BTC_USDT', 'M5');
+               $push = $sendData->firstData($pair, $period);
            }else{
                $time = $data['args'][2];
-               $push = $sendData->history('BTC_USDT', 'M5', $time);
+               $push = $sendData->history($pair, $period, $time);
            }
                break;
            case 'push';
            //推送新数据
                $send = json_encode($data['data']);
                $sendGroup = $data['group'];
-               var_dump($data);
-               var_dump($sendGroup);
                break;
        }
 
