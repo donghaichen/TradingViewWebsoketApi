@@ -62,7 +62,6 @@ class Events
     */
    public static function onMessage($client_id, $message)
    {
-       var_dump($message);
        $data = json_decode($message, true);
        $cmd = $data['cmd'];
        $file  =  __DIR__ . '/../../group.txt';//要写入文件的文件名（可以是任意文件名），如果文件不存在，将会创建一个
@@ -103,7 +102,7 @@ class Events
                $push = $sendData->firstData();
                break;
            case 'req';
-               $args = explode('.', $pair = explode());
+               $args = explode('.', $args[0]);
                $pair = $args[2];
                $period = $args[1];
            if (time() - $data['args'][2] <= 300){
