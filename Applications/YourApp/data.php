@@ -26,7 +26,7 @@ class data
     
     //历史K线数据
     public function get_history_klines($pair, $period, $endtime=0){
-        $limit=100;
+        $limit=300;
         if(empty($pair)){
             return false;
         }
