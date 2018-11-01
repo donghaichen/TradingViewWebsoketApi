@@ -67,7 +67,7 @@ class Events
        $file  =  __DIR__ . '/../../group.txt';//要写入文件的文件名（可以是任意文件名），如果文件不存在，将会创建一个
        if (isset($data['bindGroup']))
        {
-           var_dump($data);
+           var_dump(compact('data', 'client_id'));
            //生成group
            $args = strtoupper($data['args'][0]);
            $args = explode('.',$args);
