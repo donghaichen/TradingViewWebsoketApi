@@ -66,28 +66,37 @@ class Events
        $cmd = $data['cmd'];
        $file  =  __DIR__ . '/../../group.txt';//要写入文件的文件名（可以是任意文件名），如果文件不存在，将会创建一个
 
-       if ($cmd == 'req' && isset($data['args'][2]))
+       if (isset($data['group']))
        {
            //生成group
            $args = strtoupper($data['args'][0]);
            $args = explode('.',$args);
            $group = $args[1] . '_'. $args[2];
-           //加入组
-           Gateway::joinGroup($client_id, $group);
-           //读取组文件,获取组数据
-           $groupTxt = explode("\n", file_get_contents($file));
-           foreach ($groupTxt as $k => $v)
+           $action = $data['group'];
+
+           if ($action == 'unsub')
            {
-               if (!empty($v))
-               {
-                   $groupArr[$v] = '';
-               }
+               Gateway::leaveGroup($client_id, $group);
            }
-           //查询组是否在文件已写入并写入
-           if (!array_key_exists($group, $groupArr))
+           elseif ($action == 'sub')
            {
-               $content = "$group\n";
-               file_put_contents($file, $content,FILE_APPEND);
+               //加入组
+               Gateway::joinGroup($client_id, $group);
+               //读取组文件,获取组数据
+               $groupTxt = explode("\n", file_get_contents($file));
+               foreach ($groupTxt as $k => $v)
+               {
+                   if (!empty($v))
+                   {
+                       $groupArr[$v] = '';
+                   }
+               }
+               //查询组是否在文件已写入并写入
+               if (!array_key_exists($group, $groupArr))
+               {
+                   $content = "$group\n";
+                   file_put_contents($file, $content,FILE_APPEND);
+               }
            }
        }
 
