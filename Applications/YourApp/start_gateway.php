@@ -25,7 +25,7 @@ $gateway = new Gateway("websocket://0.0.0.0:2000");
 // gateway名称，status方便查看
 $gateway->name = 'YourAppGateway';
 // gateway进程数
-$gateway->count = 4;
+$gateway->count = 40;
 // 本机ip，分布式部署时使用内网ip
 $gateway->lanIp = '127.0.0.1';
 // 内部通讯起始端口，假如$gateway->count=4，起始端口为4000
