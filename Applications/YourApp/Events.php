@@ -67,20 +67,20 @@ class Events
        $file  =  __DIR__ . '/../../group.txt';//要写入文件的文件名（可以是任意文件名），如果文件不存在，将会创建一个
        var_dump($data);
 
-       if (isset($data['group']))
+       if (isset($data['bindGroup']))
        {
            var_dump($data['args']);
            //生成group
            $args = strtoupper($data['args'][0]);
            $args = explode('.',$args);
            $group = $args[1] . '_'. $args[2];
-           $action = $data['group'];
+           $bindGroup = $data['bindGroup'];
 
-           if ($action == 'unsub')
+           if ($bindGroup == 'unsub')
            {
                Gateway::leaveGroup($client_id, $group);
            }
-           elseif ($action == 'sub')
+           elseif ($bindGroup == 'sub')
            {
                //加入组
                Gateway::joinGroup($client_id, $group);
