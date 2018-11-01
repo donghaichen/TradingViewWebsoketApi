@@ -65,9 +65,11 @@ class Events
        $data = json_decode($message, true);
        $cmd = $data['cmd'];
        $file  =  __DIR__ . '/../../group.txt';//要写入文件的文件名（可以是任意文件名），如果文件不存在，将会创建一个
+       var_dump($data);
 
        if (isset($data['group']))
        {
+           var_dump($data['args']);
            //生成group
            $args = strtoupper($data['args'][0]);
            $args = explode('.',$args);
