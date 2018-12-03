@@ -22,8 +22,8 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 $context = array(
     'ssl' => array(
-        'local_cert'  => '/home/www/cert/k.exwe.com.crt', // 或者crt文件
-        'local_pk'    => '/home/www/cert/k.exwe.com.key',
+        'local_cert'  => '/home/www/cert/k.aisiex.com.crt', // 或者crt文件
+        'local_pk'    => '/home/www/cert/k.aisiex.com.key',
         'verify_peer' => false
     )
 );
