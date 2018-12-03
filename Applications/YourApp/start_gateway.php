@@ -20,17 +20,17 @@ use \Workerman\Autoloader;
 // 自动加载类
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-$context = array(
-    'ssl' => array(
-        'local_cert'  => '/home/www/cert/k.aisiex.com.crt', // 或者crt文件
-        'local_pk'    => '/home/www/cert/k.aisiex.com.key',
-        'verify_peer' => false
-    )
-);
+//$context = array(
+//    'ssl' => array(
+//        'local_cert'  => '/home/www/cert/k.aisiex.com.crt', // 或者crt文件
+//        'local_pk'    => '/home/www/cert/k.aisiex.com.key',
+//        'verify_peer' => false
+//    )
+//);
 // gateway 进程，这里使用Text协议，可以用telnet测试
 $gateway = new Gateway("websocket://0.0.0.0:2000", $context);
 // 开启SSL，websocket+SSL 即wss
-$gateway->transport = 'ssl';
+//$gateway->transport = 'ssl';
 // gateway名称，status方便查看
 $gateway->name = 'YourAppGateway';
 // gateway进程数
